@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    string[] images = (string[])ViewData["images"];
+    string[] names = (string[])ViewData["names"];
+    string[] informations = (string[])ViewData["informations"];
+    double[] prices = (double[])ViewData["prices"];
+    string[] productId = (string[])ViewData["productId"];
+}
+@section Scripts
+{
+    <script src="~/js/product/search.js"></script>
+    <script src="~/js/shoppingcart/AddToCart.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+}
+
+<link rel="stylesheet" href="~/css/toastr.min.css" />
+
+<style>
+    /*body {
+        font-family: Comic Sans MS;
+    }*/
+    table {
+        width: 100%;
+        margin: auto;
+        font-family: Comic Sans MS;
+    }
+
+    td {
+        width: 400px;
+    }
+
+    .badge {
+        font-size: 14px !important;
+    }
+
+    .like_icon {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 5px;
+        right: 30px;
+        cursor: pointer;
+    }
+
+    .img_container {
+        position: relative;
+    }
+
+    .name {
+        text-align: center
+    }
+
+    .button {
+        background-color: #D3CCCC;
+    }
+
+    .search {
+        text-align: right
+    }
+</style>
+
+<table>
+    @for (int i = 0; i < images.Length; i += 3)
+    {
+        int j;
+
+        <tr>
+            @for (j = 0; j < 3 && i + j < images.Length; j++)
+            {
+                <td>
+                    @{
+                        string url = images[i + j];
+                    }
+                    <div class="img_container">
+                        <img src=@url width="350" height="235" />
+
+
+                    </div>
+                </td>
+            }
+            @for (; j < 3; j++)
+            {
+                <td></td>
+            }
+        </tr>
+        @*------------------------------------------------------------------------------------*@
+
+        <tr>
+            @for (j = 0; j < 3 && i + j < images.Length; j++)
+            {
+
+                <th class="name">
+                    @{
+                        string name = names[i + j];
+
+                        @name
+
+                    }
+                </th>
+
+            }
+            @for (; j < 3; j++)
+            {
+                <td></td>
+            }
+        </tr>
+        @*------------------------------------------------------------------------------------*@
+        <tr>
+            @for (j = 0; j < 3 && i + j < images.Length; j++)
+            {
+
+                <td>
+                    @{
+                        string information = informations[i + j];
+
+                        @information
+
+                    }
+                </td>
+            }
+            @for (; j < 3; j++)
+            {
+                <td></td>
+            }
+        </tr>
+        @*------------------------------------------------------------------------------------*@
+        <tr>
+            @for (j = 0; j < 3 && i + j < images.Length; j++)
+            {
+
+                <td class="name">
+                    @{
+                        string price = prices[i + j].ToString("0.00");
+                    }
+
+                    <button class="add_button" productId=@productId[i+j]>$@price<br/>Add To Cart</button>
+
+                </td>
+
+            }
+            @for (; j < 3; j++)
+            {
+                <td></td>
+            }
+        </tr>
+
+        <tr>
+            <td colspan="3"><hr/></td>
+        </tr>
+
+    }
+</table>
